@@ -2,6 +2,8 @@ __pycache__/
 *.pyc
 
 .env
+config.py
+
 
 data/
 logs/*.log

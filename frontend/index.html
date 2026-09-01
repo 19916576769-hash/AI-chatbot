@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>KK AI Chat</title>
+</head>
+
+
+<body>
+
+<h1>
+    KK 
+</h1>
+
+
+<input id="question" placeholder="请输入问题">
+
+
+<button onclick="chat()">
+发送
+</button>
+
+
+<div id="answer">
+
+</div>
+
+<script>
+
+// 定义一个函数
+// 当点击"发送"按钮时，就会执行这里面的代码
+async function chat(){
+    // 获取输入框对象
+    const questionInput = document.getElementById("question");
+    // 获取输入框里的文字
+    const question = questionInput.value;
+    //如果输入的内容是空的，就不发送请求,结束函数
+    if(question == ""){
+        //提示用户输入的内容不能为空
+        alert("请输入问题");
+        return;
+    }
+
+    // 打印一下，方便调试
+    console.log(question);
+
+    //打印用户的问题到网页上,为了避免新的信息覆盖旧的信息,我们使用 += 来追加内容
+    //先找到聊天区域
+    const chatDiv = document.getElementById("answer");
+    //把盒子里面的内容改成 用户提问,显示到网页上
+    chatDiv.innerHTML += "KJ: " + question + "<br><br>";
+
+    //创建一个新的HTML元素来显示loading状态
+    const loadingDiv = document.createElement("div");
+
+    //设置loadingDiv的内容为"KK正在loading中..."
+    loadingDiv.innerHTML = "KK正在loading中...";
+
+    //把loadingDiv添加到聊天区域
+    chatDiv.appendChild(loadingDiv);
+
+    // 向 FastAPI 发送 POST 请求
+    const response = await fetch("/chat", {
+
+        // 请求方式
+        method: "POST",
+
+        // 告诉 FastAPI 我发送的是 JSON
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        // 请求体（JSON）
+        body: JSON.stringify({
+
+            // 对应 ChatRequest.question
+            question: question
+
+        })
+
+    });
+
+    // 把服务器返回的数据转换成 JSON
+    const data = await response.json();
+
+    // 删除“正在思考中...”
+    loadingDiv.remove();
+    // 打印AI返回的回答
+    console.log(data.answer);
+    
+    //把盒子里面的内容改成 AI 回复,显示到网页上,为了避免新的信息覆盖旧的信息,我们使用 += 来追加内容
+    //并且添加换行符 <br> 来换行
+    chatDiv.innerHTML += "KK: " + data.answer + "<br><br>";
+
+    // 清空输入框
+    questionInput.value = "";
+
+
+}
+
+    // 监听输入框的回车事件
+    // 获取输入框
+    const questionInput = document.getElementById("question");
+
+    // 监听输入框键盘按下事件
+    questionInput.addEventListener("keydown", function(event){
+
+        // 打印按下的按键
+        console.log(event.key);
+        //如果按下了enter键，就执行chat函数
+        if(event.key === "Enter"){
+            chat();
+        }
+
+});
+
+</script>
+
+</body>
+
+</html>

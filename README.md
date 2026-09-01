@@ -1,26 +1,37 @@
-# AI Chatbot
+# KK AI Chat
 
-一个基于 DeepSeek API 开发的 AI 聊天机器人。
+一个基于 FastAPI + DeepSeek API 的 AI 聊天机器人项目。
 
-## 功能
+## ✨ 当前版本
 
-- AI聊天
-- 上下文记忆
-- SQLite数据库
-- Python开发
+v1.1.0
 
-## 技术栈
+## 🚀 已实现功能
+
+- Python AI ChatBot
+- DeepSeek API 调用
+- SQLite 聊天记忆
+- FastAPI Web 服务
+- HTML + JavaScript 前端
+- REST API 通信
+- Enter 键发送消息
+- 空输入检测
+- AI 思考中（Loading）
+- 聊天记录显示
+- 自动清空输入框
+
+## 🛠 技术栈
 
 - Python
-- DeepSeek API
+- FastAPI
 - SQLite
+- HTML
+- JavaScript
+- DeepSeek API
 
-## 运行
+## 下一步计划
 
-```bash
-pip install -r requirements.txt
-
-python main.py
-```
-
-
+- CSS 聊天气泡
+- 页面美化
+- Markdown 渲染
+- 流式输出

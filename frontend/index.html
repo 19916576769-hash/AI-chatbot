@@ -4,27 +4,54 @@
 
 <head>
     <title>KK AI Chat</title>
+    <link rel="stylesheet" href="/frontend/style.css">
 </head>
 
 
 <body>
 
-<h1>
-    KK 
-</h1>
+<div class="container">
 
+        <!-- 顶部 -->
+        <div class="header">
 
-<input id="question" placeholder="请输入问题">
+            <div class="logo">
+                KK
+            </div>
 
+            <div class="title">
+                <h1>KK Chat</h1>
+                <p>Your AI Agent</p>
+            </div>
+            
+            <div class="setting">
+                <h1>⚙</h1>
+                <p>Settings</p>
+            </div>
+        </div>
 
-<button onclick="chat()">
-发送
-</button>
+        <!-- 聊天区域 -->
+        <div id="answer" class="chat-area">
+            
 
+        </div>
 
-<div id="answer">
+        <!-- 输入区域 -->
+        <div class="input-area">
 
-</div>
+            <input
+                id="question"
+                placeholder="Please talk to me..."
+            >
+
+            <button onclick="chat()">
+                ➜
+            </button>
+
+        </div>
+
+    </div>
+
 
 <script>
 
@@ -49,16 +76,16 @@ async function chat(){
     //先找到聊天区域
     const chatDiv = document.getElementById("answer");
     //把盒子里面的内容改成 用户提问,显示到网页上
-    chatDiv.innerHTML += "KJ: " + question + "<br><br>";
+    const message = document.createElement("div");
+    message.className = "message user";
+    message.textContent = question;
+    chatDiv.appendChild(message);
 
     //创建一个新的HTML元素来显示loading状态
-    const loadingDiv = document.createElement("div");
-
-    //设置loadingDiv的内容为"KK正在loading中..."
-    loadingDiv.innerHTML = "KK正在loading中...";
-
-    //把loadingDiv添加到聊天区域
-    chatDiv.appendChild(loadingDiv);
+    const aiMessage = document.createElement("div");
+    aiMessage.className = "message ai";
+    aiMessage.textContent = "Thinking...";
+    chatDiv.appendChild(aiMessage);
 
     // 向 FastAPI 发送 POST 请求
     const response = await fetch("/chat", {
@@ -84,15 +111,7 @@ async function chat(){
     // 把服务器返回的数据转换成 JSON
     const data = await response.json();
 
-    // 删除“正在思考中...”
-    loadingDiv.remove();
-    // 打印AI返回的回答
-    console.log(data.answer);
-    
-    //把盒子里面的内容改成 AI 回复,显示到网页上,为了避免新的信息覆盖旧的信息,我们使用 += 来追加内容
-    //并且添加换行符 <br> 来换行
-    chatDiv.innerHTML += "KK: " + data.answer + "<br><br>";
-
+    aiMessage.textContent = data.answer;
     // 清空输入框
     questionInput.value = "";
 

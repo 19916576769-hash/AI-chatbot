@@ -2,11 +2,11 @@
 
 一个基于 FastAPI + DeepSeek API 的 AI 聊天机器人项目。
 
-## ✨ 当前版本
+## 
 
 v1.1.0
 
-## 🚀 已实现功能
+## 已实现功能
 
 - Python AI ChatBot
 - DeepSeek API 调用
@@ -20,7 +20,7 @@ v1.1.0
 - 聊天记录显示
 - 自动清空输入框
 
-## 🛠 技术栈
+## 技术栈
 
 - Python
 - FastAPI
@@ -35,3 +35,42 @@ v1.1.0
 - 页面美化
 - Markdown 渲染
 - 流式输出
+
+
+
+
+
+
+## 当前版本
+v1.2.0
+
+## 已实现功能
+
+- Chat with AI
+- FastAPI Backend
+- Modern Chat UI
+- User / AI Chat Bubble
+- Thinking Status
+- Enter to Send
+- DOM Rendering (createElement)
+
+
+
+## 技术栈
+
+Backend
+- Python
+- FastAPI
+
+Frontend
+- HTML
+- CSS
+- JavaScript
+
+AI
+- DeepSeek API
+
+
+## 截图
+![alt text](image.png)
+

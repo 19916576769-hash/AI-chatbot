@@ -44,7 +44,7 @@
                 placeholder="Please talk to me..."
             >
 
-            <button onclick="chat()">
+            <button id="sendButton" onclick="chat()">
                 ➜
             </button>
 
@@ -54,10 +54,17 @@
 
 
 <script>
-
+//封装自动滚动到底部的函数
+function scrollToBottom() {
+    const chatDiv = document.getElementById("answer");
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+}
 // 定义一个函数
 // 当点击"发送"按钮时，就会执行这里面的代码
 async function chat(){
+    //disable buttom防止连点
+    const sendButton = document.getElementById("sendButton");
+    sendButton.disabled = true;
     // 获取输入框对象
     const questionInput = document.getElementById("question");
     // 获取输入框里的文字
@@ -72,7 +79,7 @@ async function chat(){
     // 打印一下，方便调试
     console.log(question);
 
-    //打印用户的问题到网页上,为了避免新的信息覆盖旧的信息,我们使用 += 来追加内容
+    //打印用户的问题到网页上
     //先找到聊天区域
     const chatDiv = document.getElementById("answer");
     //把盒子里面的内容改成 用户提问,显示到网页上
@@ -80,15 +87,23 @@ async function chat(){
     message.className = "message user";
     message.textContent = question;
     chatDiv.appendChild(message);
+    scrollToBottom();
+
+
+        // 清空输入框
+    questionInput.value = "";
+
+
 
     //创建一个新的HTML元素来显示loading状态
     const aiMessage = document.createElement("div");
     aiMessage.className = "message ai";
     aiMessage.textContent = "Thinking...";
     chatDiv.appendChild(aiMessage);
+    scrollToBottom();
 
     // 向 FastAPI 发送 POST 请求
-    const response = await fetch("/chat", {
+    const response = await fetch("/chat/stream", {
 
         // 请求方式
         method: "POST",
@@ -108,16 +123,29 @@ async function chat(){
 
     });
 
-    // 把服务器返回的数据转换成 JSON
-    const data = await response.json();
+    // 获取响应体的可读流
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
 
-    aiMessage.textContent = data.answer;
-    // 清空输入框
-    questionInput.value = "";
+    while(true){
 
+        const {done,value} = await reader.read();
+
+        if(done){
+            break;
+        }
+    aiMessage.textContent = aiMessage.textContent.replace("Thinking...","");
+    const text = decoder.decode(value);
+
+    aiMessage.textContent += text;
+
+    scrollToBottom();
 
 }
 
+    sendButton.disabled = false;
+
+}
     // 监听输入框的回车事件
     // 获取输入框
     const questionInput = document.getElementById("question");

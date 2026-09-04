@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from chatbot import ai_answer
-from fastapi.responses import FileResponse
+from chatbot import ai_answer,ai_stream
+from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
@@ -27,3 +27,13 @@ def chat(req: ChatRequest):
     return {
         "answer": answer
     }
+
+@app.post("/chat/stream")
+def chat_stream(req: ChatRequest):
+
+    print("收到问题：", req.question)
+
+    return StreamingResponse(
+        ai_stream(req.question),
+        media_type="text/plain"
+    )

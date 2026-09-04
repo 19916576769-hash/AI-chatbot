@@ -1,6 +1,6 @@
 # KK AI Chat
 
-一个基于 FastAPI + DeepSeek API 的 AI 聊天机器人项目。
+一个基于 FastAPI + GLM API 的 AI 聊天机器人项目。
 
 ## 
 
@@ -9,7 +9,7 @@ v1.1.0
 ## 已实现功能
 
 - Python AI ChatBot
-- DeepSeek API 调用
+- GLM API 调用
 - SQLite 聊天记忆
 - FastAPI Web 服务
 - HTML + JavaScript 前端
@@ -41,7 +41,7 @@ v1.1.0
 
 
 
-## 当前版本
+## 
 v1.2.0
 
 ## 已实现功能
@@ -74,3 +74,38 @@ AI
 ## 截图
 ![alt text](image.png)
 
+
+
+
+
+## 当前版本
+v1.3.0
+
+## 已实现功能
+
+-  FastAPI backend
+-  GLM-4-Flash API
+-  SQLite conversation memory
+-  Chat UI
+-  Auto Scroll
+-  Send Button State Management
+-  Streaming Response
+
+
+## 技术栈
+
+Backend
+- Python
+- FastAPI
+
+Frontend
+- HTML
+- CSS
+- JavaScript
+
+AI
+- DeepSeek API
+
+
+## 截图
+![alt text](image-1.png)

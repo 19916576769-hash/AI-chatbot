@@ -8,7 +8,7 @@ from database import save_message, load_history
 
 client = OpenAI(
     api_key=API_KEY,
-    base_url="https://api.deepseek.com"
+    base_url="https://open.bigmodel.cn/api/paas/v4/"
 )
 
 
@@ -50,7 +50,7 @@ def ai_answer(question):
 
 
     # ========= 第三步 =========
-    # 把聊天记录发送给DeepSeek
+    # 把聊天记录发送给glm
     try:
 
         response = client.chat.completions.create(
@@ -71,7 +71,7 @@ def ai_answer(question):
     except Exception as e:
 
         logging.error(
-            f"DeepSeek API调用失败：{type(e).__name__} - {e}"
+            f"Glm API调用失败：{type(e).__name__} - {e}"
         )
 
         print("KK：抱歉，AI服务暂时不可用")
@@ -111,3 +111,75 @@ def ai_answer(question):
     # ========= 第六步 =========
     # 返回AI回答
     return answer
+
+
+
+def ai_stream(question):
+
+    # 保存用户消息
+    try:
+        save_message("user", question)
+    except Exception as e:
+        logging.error(
+            f"保存用户消息失败：{type(e).__name__} - {e}"
+        )
+
+
+    # 获取历史
+    try:
+        history = load_history()
+    except Exception as e:
+        logging.error(
+            f"读取历史失败：{type(e).__name__} - {e}"
+        )
+        history = []
+
+
+    # 调用模型
+    try:
+
+        response = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=[
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT
+                }
+            ] + history,
+            stream=True
+        )
+
+    except Exception as e:
+
+        logging.error(
+            f"GLM Streaming调用失败：{type(e).__name__} - {e}"
+        )
+
+        yield "抱歉，AI服务暂时不可用"
+
+        return
+
+
+    answer = ""
+
+    for chunk in response:
+
+        content = chunk.choices[0].delta.content
+
+        if content:
+
+            answer += content
+
+            yield content
+
+
+    # 保存AI回答
+    try:
+
+        save_message("assistant", answer)
+
+    except Exception as e:
+
+        logging.error(
+            f"保存AI回答失败：{type(e).__name__} - {e}"
+        )

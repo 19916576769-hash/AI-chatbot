@@ -72,13 +72,13 @@ AI
 
 
 ## 截图
-![alt text](image.png)
+![alt text](image1.2.0.png)
 
 
 
 
 
-## 当前版本
+##
 v1.3.0
 
 ## 已实现功能
@@ -108,4 +108,23 @@ AI
 
 
 ## 截图
-![alt text](image-1.png)
+![alt text](image-1.3.0.png)
+
+
+
+
+## 当前版本
+v1.4.0
+
+## v1.4.0
+
+### 新增功能
+
+- Markdown 渲染
+- 代码语法高亮（highlight.js）
+- 代码块 Copy 按钮
+- Streaming 输出
+- AI Conversation Memory（数据库历史）
+
+## 截图
+![alt text](image-1.4.0.png)

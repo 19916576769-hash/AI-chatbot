@@ -81,7 +81,7 @@ body{
 
 }
 
-button{
+.sendButton{
 
     width: 52px;
     height: 48px;
@@ -94,13 +94,13 @@ button{
 
 }
 
-button:hover{
+.sendButton:hover{
 
     background:#2f8fff;
 
 }
 
-button:disabled{
+.sendButton:disabled{
     opacity:0.5;
     cursor:not-allowed;
 }
@@ -191,4 +191,68 @@ button:disabled{
 .ai{
     background:white;
     align-self:flex-start;
+    overflow-wrap: break-word;
+}
+.ai pre{
+    background: #000000;
+    color: white;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    overflow-x: auto;
+
+    white-space: pre;
+
+    margin: 10px 0;
+}
+
+.message.ai pre{
+
+    position: relative;
+
+    background: #ffffff;
+
+    color: white;
+
+    border-radius: 10px;
+
+    padding: 16px;
+    padding-top:40px;
+
+    overflow-x: auto;
+
+    margin: 12px 0;
+
+}
+
+.copybtn{
+
+    position: absolute;
+
+    top: 5px;
+
+    right: 5px;
+
+    padding: 4px 10px;
+
+    font-size: 8px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    background: #444;
+
+    color: white;
+
+}
+
+.copybtn:hover{
+
+    background: #666;
+
 }

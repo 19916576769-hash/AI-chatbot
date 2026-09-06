@@ -10,6 +10,19 @@
 
 <body>
 
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+
+
+
+
 <div class="container">
 
         <!-- 顶部 -->
@@ -44,7 +57,7 @@
                 placeholder="Please talk to me..."
             >
 
-            <button id="sendButton" onclick="chat()">
+            <button id="sendButton" class="sendButton" onclick="chat()">
                 ➜
             </button>
 
@@ -58,6 +71,39 @@
 function scrollToBottom() {
     const chatDiv = document.getElementById("answer");
     chatDiv.scrollTop = chatDiv.scrollHeight;
+}
+//封装添加复制按钮的函数
+function addCopyButtons(){
+
+    document.querySelectorAll("pre").forEach((pre)=>{
+
+        // 已经添加过就跳过
+        if(pre.querySelector(".copybtn")){
+            return;
+        }
+
+        const btn = document.createElement("button");
+
+        btn.textContent = "Copy";
+
+        btn.className = "copybtn";
+
+        btn.onclick = function(){
+
+            navigator.clipboard.writeText(pre.innerText);
+
+            btn.textContent = "Copied!";
+
+            setTimeout(()=>{
+                btn.textContent = "Copy";
+            },2000);
+
+        };
+
+        pre.appendChild(btn);
+
+    });
+
 }
 // 定义一个函数
 // 当点击"发送"按钮时，就会执行这里面的代码
@@ -127,6 +173,9 @@ async function chat(){
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
 
+    //完成markdown解析和代码高亮的功能
+    let fullText = "";
+
     while(true){
 
         const {done,value} = await reader.read();
@@ -137,8 +186,12 @@ async function chat(){
     aiMessage.textContent = aiMessage.textContent.replace("Thinking...","");
     const text = decoder.decode(value);
 
-    aiMessage.textContent += text;
-
+    fullText += text;
+    aiMessage.innerHTML = marked.parse(fullText);
+    document.querySelectorAll("pre code").forEach((block)=>{
+    hljs.highlightElement(block);
+});
+    addCopyButtons();
     scrollToBottom();
 
 }

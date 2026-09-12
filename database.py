@@ -13,6 +13,15 @@ def init_database():
         content TEXT
     )
     """)
+    #再增加一张表，用于存储记忆数据memory
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS memory(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    key TEXT UNIQUE,
+    value TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
 
     conn.commit()
 
@@ -86,6 +95,69 @@ def load_history(limit=20):
         )
 
     return history
+
+
+
+def save_memory(key, value):
+
+    conn = sqlite3.connect(DATABASE_PATH)
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO memory(key, value)
+        VALUES(?, ?)
+
+        ON CONFLICT(key) #如果key已经存在，则更新value和updated_at字段
+        DO UPDATE SET
+            value = excluded.value,
+            updated_at = CURRENT_TIMESTAMP
+    """, (key, value))
+
+    conn.commit()
+
+    conn.close()
+
+
+def load_memory():
+
+    conn = sqlite3.connect(DATABASE_PATH)
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT key, value
+        FROM memory
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    memory = {}
+
+    for key, value in rows:
+        memory[key] = value
+
+    return memory
+
+
+def delete_memory(key):
+
+    conn = sqlite3.connect(DATABASE_PATH)
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        DELETE FROM memory
+        WHERE key=?
+    """, (key,))
+
+    conn.commit()
+
+    conn.close()
+
+
 
 init_database()
 

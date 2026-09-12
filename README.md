@@ -1,6 +1,27 @@
 # KK AI Chat
 
-一个基于 FastAPI + GLM API 的 AI 聊天机器人项目。
+A modern AI chatbot powered by GLM-4.
+
+Features
+
+✅ Streaming Response
+
+✅ Long-term Memory
+
+✅ Markdown Rendering
+
+✅ Code Highlight
+
+✅ Copy Code
+
+✅ Chat History
+
+✅ SQLite Storage
+
+✅ FastAPI Backend
+
+
+
 
 ## 
 
@@ -72,7 +93,7 @@ AI
 
 
 ## 截图
-![alt text](image1.2.0.png)
+![alt text](image-1.2.0.png)
 
 
 
@@ -128,3 +149,25 @@ v1.4.0
 
 ## 截图
 ![alt text](image-1.4.0.png)
+
+
+
+
+
+
+
+
+## 当前版本
+v1.5.2
+
+## v1.5.2
+### 新增功能
+- 长期记忆
+- 创建了一个memory_prompt
+
+
+## 截图
+![alt text](image-1.5.2(1).png)
+![alt text](image-1.5.2(2).png)
+
+ 

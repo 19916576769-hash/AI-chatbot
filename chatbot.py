@@ -1,7 +1,7 @@
 import logging
 from openai import OpenAI
 from config import API_KEY, MODEL_NAME, SYSTEM_PROMPT
-from database import save_message, load_history
+from database import save_message, load_history,load_memory,save_memory
 
 
 # 创建AI客户端
@@ -13,8 +13,23 @@ client = OpenAI(
 
 
 
+memory = load_memory()  # 加载记忆数据到内存中
+#新增build_system_prompt函数,用于构建系统提示词,将记忆数据加入到系统提示词中
+def build_system_prompt():
 
+    memory = load_memory()
 
+    prompt = SYSTEM_PROMPT
+
+    prompt += "\n\n"
+
+    prompt += "【用户长期记忆】\n"
+
+    for key, value in memory.items():
+
+        prompt += f"{key}: {value}\n"
+
+    return prompt
 
 
 
@@ -60,7 +75,7 @@ def ai_answer(question):
             messages=[
                 {
                     "role": "system",
-                    "content": SYSTEM_PROMPT
+                    "content": build_system_prompt()
                 }
             ] + history,
 
@@ -143,7 +158,7 @@ def ai_stream(question):
             messages=[
                 {
                     "role": "system",
-                    "content": SYSTEM_PROMPT
+                    "content": build_system_prompt()
                 }
             ] + history,
             stream=True

@@ -134,7 +134,7 @@ AI
 
 
 
-## 当前版本
+
 v1.4.0
 
 ## v1.4.0
@@ -157,7 +157,7 @@ v1.4.0
 
 
 
-## 当前版本
+##
 v1.5.2
 
 ## v1.5.2
@@ -171,3 +171,57 @@ v1.5.2
 ![alt text](image-1.5.2(2).png)
 
  
+
+
+## 不足之处
+### 1.chatbot.py太胖了
+后面需要拆分重构一下
+
+### 2.prompt还没有engine
+v1.6的定义就是better prompt
+
+### 3.config会越来越乱,也很胖
+需要拆分重构一下
+
+
+
+
+
+
+## 当前版本
+v1.6.3
+
+## v1.6.3
+### 新增功能
+-  Prompt Engine
+将 Prompt 拆分为多个独立 Builder
+新增 build_role()
+新增 build_memory()
+新增 build_rules()
+新增 build_style()
+
+-  Prompt Config
+支持 ENABLE_ROLE
+支持 ENABLE_MEMORY
+支持 ENABLE_RULES
+支持 ENABLE_STYLE
+
+-  Dynamic Prompt
+新增 detect_task()
+支持任务识别
+Programming Prompt
+Translation Prompt
+
+-  架构优化
+Prompt Builder Pattern
+Prompt Config
+Dynamic Prompt 基础框架
+
+## 下一站：v1.7.0 🚀
+
+我建议我们把 **v1.7.0** 定义为一个重要的里程碑，目标不是继续堆 Prompt，而是提升整体架构：
+
+- Prompt Pipeline（Prompt 流水线）
+- Task Prompt Builder（任务 Prompt 构建器）
+- Prompt Mapping（用映射代替大量 `if...elif...`）
+- Prompt Logger（记录实际发送给模型的 Prompt，便于调试）

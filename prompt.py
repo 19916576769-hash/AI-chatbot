@@ -2,17 +2,8 @@ from config import ENABLE_MEMORY,ENABLE_ROLES,ENABLE_RULES,ENABLE_STYLE
 from database import load_memory
 
 
-"""
-Prompt Engine
+PROMPT_VERSION = "1.7.4"
 
-Version: 1.0.0
-
-Modules:
-- Role
-- Memory
-- Rules
-- Style
-"""
 
 
 
@@ -71,19 +62,45 @@ def build_programming_prompt():
     解释思路。
     注意性能。
     """
+##***********************Mapping***********************##
 
+TASK_PROMPTS = {
 
+    "translation": build_translation_prompt,
+
+    "programming": build_programming_prompt,
+
+}
+
+TASK_KEYWORDS = {
+
+    "programming": [
+        "python",
+        "java",
+        "代码",
+        "bug",
+        "编程",
+    ],
+
+    "translation": [
+        "翻译",
+        "translate",
+        "英文",
+    ]
+}
+
+##**************************Mapping************************************##
 
 def detect_task(question):
     """根据用户的问题,找到提示词的名称"""
     question = question.lower()
-    if "python" in question:
-        return "programming"
+    for task,keywords in TASK_KEYWORDS.items():
 
-    if "翻译" in question:
-        return "翻译"
-    else :
-        return ""
+        if any(keyword in question for keyword in keywords):
+            return task
+
+    return "general"
+
 
 
 
@@ -108,11 +125,13 @@ def build_prompt(question):
     if ENABLE_STYLE:
         sections.append(build_style())
 
-    if task == "翻译":
-        sections.append(build_translation_prompt())
 
-    elif task == "programming":
-        sections.append(build_programming_prompt())
+
+    builder = TASK_PROMPTS.get(task)
+
+    if builder:
+        sections.append(builder())
+
    
     
 

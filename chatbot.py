@@ -1,8 +1,8 @@
 import logging
 from openai import OpenAI
-from config import API_KEY, MODEL_NAME, SYSTEM_PROMPT
+from config import API_KEY, MODEL_NAME
 from database import save_message, load_history,save_memory
-from prompt import build_prompt
+from pipeline import run_pipeline
 
 
 # 创建AI客户端
@@ -49,15 +49,15 @@ def ai_answer(question):
     # ========= 第三步 =========
     # 把聊天记录发送给glm
     try:
-
+        prompt = run_pipeline(question)
         response = client.chat.completions.create(
 
             model=MODEL_NAME,
-
+            
             messages=[
                 {
                     "role": "system",
-                    "content": build_prompt()
+                    "content": prompt
                 }
             ] + history,
 
@@ -134,13 +134,14 @@ def ai_stream(question):
 
     # 调用模型
     try:
-
+        prompt = run_pipeline(question)
         response = client.chat.completions.create(
             model=MODEL_NAME,
+            
             messages=[
                 {
                     "role": "system",
-                    "content": build_prompt()
+                    "content": prompt
                 }
             ] + history,
             stream=True

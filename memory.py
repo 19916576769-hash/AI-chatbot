@@ -1,10 +1,10 @@
 from openai import OpenAI
 from config import (API_KEY, MODEL_NAME, MEMORY_PROMPT)
 import json,logging
-
+from database import load_memory
 client = OpenAI(
     api_key=API_KEY,
-    base_url="https://open.bigmodel.cn/api/paas/v4/"
+    base_url="https://api.deepseek.com"
 )
 
 
@@ -63,4 +63,17 @@ def extract_memory(question):
         )
         return None
 
-    
+
+
+
+
+
+def build_memory():
+    memory = load_memory()  # 加载记忆数据到内存中
+    prompt = ""
+    if memory:
+        prompt += "\n\n"
+        prompt += "【用户长期记忆】\n"
+        for key, value in memory.items():
+            prompt += f"{key}: {value}\n"
+    return prompt

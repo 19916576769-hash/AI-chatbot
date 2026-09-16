@@ -2,7 +2,6 @@ from config import ENABLE_MEMORY,ENABLE_ROLES,ENABLE_RULES,ENABLE_STYLE
 from database import load_memory
 
 
-PROMPT_VERSION = "1.7.4"
 
 
 

@@ -9,7 +9,7 @@ from pipeline import run_pipeline
 
 client = OpenAI(
     api_key=API_KEY,
-    base_url="https://open.bigmodel.cn/api/paas/v4/"
+    base_url="https://api.deepseek.com"
 )
 
 
@@ -68,7 +68,7 @@ def ai_answer(question):
     except Exception as e:
 
         logging.error(
-            f"Glm API调用失败：{type(e).__name__} - {e}"
+            f"DeepSeek API调用失败：{type(e).__name__} - {e}"
         )
 
         print("KK：抱歉，AI服务暂时不可用")
@@ -150,7 +150,7 @@ def ai_stream(question):
     except Exception as e:
 
         logging.error(
-            f"GLM Streaming调用失败：{type(e).__name__} - {e}"
+            f"DeepSeek Streaming调用失败：{type(e).__name__} - {e}"
         )
 
         yield "抱歉，AI服务暂时不可用"

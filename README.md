@@ -1,8 +1,15 @@
 # KK AI Chat
 
-A modern AI chatbot powered by GLM-4.
+A modern AI chatbot
 
+## 框架设计原则 Framework Design Principles
 
+1. Single Responsibility
+2. Open / Closed
+3. Pipeline First
+4. Configuration over Code
+5. Stable Public API
+6. Low Coupling
 
 
 
@@ -17,7 +24,7 @@ A modern AI chatbot powered by GLM-4.
 ## 已实现功能
 
 - Python AI ChatBot
-- GLM API 调用
+- GLM and DeepSeek API 调用
 - SQLite 聊天记忆
 - FastAPI Web 服务
 - HTML + JavaScript 前端

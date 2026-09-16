@@ -1,5 +1,5 @@
 import logging
-from prompt import detect_task
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -11,7 +11,7 @@ logging.basicConfig(
 
 
 def log_prompt(prompt,task,version):
-    task = detect_task()
+   
     print("=" * 60)
 
     print("Prompt logger")

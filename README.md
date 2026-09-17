@@ -1,6 +1,111 @@
 # KK AI Chat
 
-A modern AI chatbot
+## A modern AI chatbot   designed   by   KJ_28
+
+---
+
+
+Prompt Engine
+↓
+
+Memory Engine
+↓
+
+Pipeline
+
+↓
+
+LLM Client
+
+
+---
+
+## Quick Start
+### Prerequisites
+
+Before getting started, make sure you have:
+
+- Python 3.13+
+- Git
+- A DeepSeek API Key
+
+
+1. Clone the repository
+git clone https://github.com/19916576769-hash/AI-chatbot.git
+cd AI-chatbot
+
+
+2. Create a virtual environment
+
+Windows
+
+python -m venv .venv
+.venv\Scripts\activate
+
+macOS / Linux
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+
+3. Install dependencies
+pip install -r requirements.txt
+
+
+4. Configure environment variables
+
+Create a .env file in the project root.
+
+Example:
+
+DEEPSEEK_API_KEY=your_api_key_here
+
+如果你的项目还有其他环境变量，例如：
+
+MODEL_NAME=deepseek-chat
+BASE_URL=https://api.deepseek.com
+
+也可以一起写出来。
+
+5. Run the server
+uvicorn app:app --reload
+
+启动成功后应该看到类似：
+
+INFO: Uvicorn running on http://127.0.0.1:8000
+
+
+6. Open your browser
+
+Visit:
+
+http://127.0.0.1:8000
+
+开始和 KK Chat 对话。
+
+
+
+
+
+
+
+
+
+
+
+## Feature
+
+- prompt engine
+- modular architecture
+- prompt pipeline
+- memory system
+- prompt metadata
+- version management
+- extendable framework
+
+
+
+
 
 ## 框架设计原则 Framework Design Principles
 
@@ -19,131 +124,21 @@ A modern AI chatbot
 
 
 
-# v1.1.0
+## Architecture
+                KK AI Framework
 
-## 已实现功能
-
-- Python AI ChatBot
-- GLM and DeepSeek API 调用
-- SQLite 聊天记忆
-- FastAPI Web 服务
-- HTML + JavaScript 前端
-- REST API 通信
-- Enter 键发送消息
-- 空输入检测
-- AI 思考中（Loading）
-- 聊天记录显示
-- 自动清空输入框
-
-## 技术栈
-
-- Python
-- FastAPI
-- SQLite
-- HTML
-- JavaScript
-- DeepSeek API
-
-## 下一步计划
-
-- CSS 聊天气泡
-- 页面美化
-- Markdown 渲染
-- 流式输出
-
-
-
----
-
-
-# v1.2.0
-
-## 已实现功能
-
-- Chat with AI
-- FastAPI Backend
-- Modern Chat UI
-- User / AI Chat Bubble
-- Thinking Status
-- Enter to Send
-- DOM Rendering (createElement)
-
-
-
-## 技术栈
-
-Backend
-- Python
-- FastAPI
-
-Frontend
-- HTML
-- CSS
-- JavaScript
-
-AI
-- DeepSeek API
-
-
-## 截图
-![alt text](image-1.2.0.png)
-
-
----
-
-
-# v1.3.0
-
-## 已实现功能
-
--  FastAPI backend
--  GLM-4-Flash API
--  SQLite conversation memory
--  Chat UI
--  Auto Scroll
--  Send Button State Management
--  Streaming Response
-
-
-## 技术栈
-
-Backend
-- Python
-- FastAPI
-
-Frontend
-- HTML
-- CSS
-- JavaScript
-
-AI
-- DeepSeek API
-
-
-## 截图
-![alt text](image-1.3.0.png)
-
-
-
----
-
-
-
-# v1.4.0
-
-### 新增功能
-
-- Markdown 渲染
-- 代码语法高亮（highlight.js）
-- 代码块 Copy 按钮
-- Streaming 输出
-- AI Conversation Memory（数据库历史）
-
-## 截图
-![alt text](image-1.4.0.png)
-
-
-
+                       │
+                 Chat Pipeline
+                       │
+        ┌──────────────┴──────────────┐
+        ▼                             ▼
+ Prompt Engine                  Memory Engine
+        │
+        ▼
+ Prompt Builder
+        │
+        ▼
+ Prompt Stages
 
 
 
@@ -152,33 +147,25 @@ AI
 
 
 
+## Project Structure
 
+ KK-Chatbot/
 
-
-# v1.5.2
-### 新增功能
-- 长期记忆
-- 创建了一个memory_prompt
-
-
-## 截图
-![alt text](image-1.5.2(1).png)
-![alt text](image-1.5.2(2).png)
-
- 
-
-
-## 不足之处
-### 1.chatbot.py太胖了
-后面需要拆分重构一下
-
-### 2.prompt还没有engine
-v1.6的定义就是better prompt
-
-### 3.config会越来越乱,也很胖
-需要拆分重构一下
-
-
+├── chatbot.py
+├── pipeline.py
+│
+├── prompt/
+│
+├── memory/
+│
+├── logs/
+│
+├── tests/
+│
+├── docs/
+│
+├── README.md
+└── requirements.txt
 
 
 
@@ -187,75 +174,36 @@ v1.6的定义就是better prompt
 
 
 
-# v1.6.3
-### 新增功能
--  Prompt Engine
-将 Prompt 拆分为多个独立 Builder
-新增 build_role()
-新增 build_memory()
-新增 build_rules()
-新增 build_style()
+v1.0  -  v1.4  Basic AI Chat
 
--  Prompt Config
-支持 ENABLE_ROLE
-支持 ENABLE_MEMORY
-支持 ENABLE_RULES
-支持 ENABLE_STYLE
+↓
 
--  Dynamic Prompt
-新增 detect_task()
-支持任务识别
-Programming Prompt
-Translation Prompt
+v1.5  memory_prompt
 
--  架构优化
-Prompt Builder Pattern
-Prompt Config
-Dynamic Prompt 基础框架
+↓
 
+v1.6 better prompt
 
+↓
 
----
+v1.7  Prompt Pipeline
 
+↓
 
+v1.8  AI Framework
 
+↓
 
-## 当前版本
-# v1.7.4
-### 新增功能
-- Prompt Pipeline
-- Prompt Logger
-- Prompt Version
-- Task Prompt Mapping
-- Task Keyword Mapping
+v1.9  Open Source
 
+↓
 
-## 截图
-![alt text](image-1.7.4.png)
+v2.0  Secure AI
 
+↓
 
----
+v3.0  RAG
 
+↓
 
-## 下一步计划
-
-***接下来进入 v1.8***
-
-我建议把 v1.8 定义为：
-
-***AI Framework（架构升级）***
-
-我们先做：
-
-Prompt Engine 模块拆分（Module Refactor）。
-
-
-
-
-
-
-
-
-
-
-
+v4.0  Agent

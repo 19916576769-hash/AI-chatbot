@@ -7,3 +7,10 @@ config.py
 
 data/
 logs/*.log
+
+
+
+.pytest_cache/
+
+
+

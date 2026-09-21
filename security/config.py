@@ -1,0 +1,7 @@
+
+
+
+MAX_INPUT_LENGTH = 500
+ENABLE_INPUT_FILTER = True
+
+

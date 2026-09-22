@@ -65,7 +65,7 @@ AI
 
 
 ## 截图
-![alt text](picture/image-1.2.0.png)
+![alt text](../picture/image-1.2.0.png)
 
 
 ---
@@ -100,7 +100,7 @@ AI
 
 
 ## 截图
-![alt text](picture/image-1.3.0.png)
+![alt text](../picture/image-1.3.0.png)
 
 
 
@@ -119,7 +119,7 @@ AI
 - AI Conversation Memory（数据库历史）
 
 ## 截图
-![alt text](picture/image-1.4.0.png)
+![alt text](../picture/image-1.4.0.png)
 
 
 
@@ -141,8 +141,8 @@ AI
 
 
 ## 截图
-![alt text](picture/image-1.5.2(1).png)
-![alt text](picture/image-1.5.2(2).png)
+![alt text](../picture/image-1.5.2(1).png)
+![alt text](../picture/image-1.5.2(2).png)
 
  
 
@@ -210,7 +210,7 @@ Dynamic Prompt 基础框架
 
 
 ## 截图
-![alt text](picture/image-1.7.4.png)
+![alt text](../picture/image-1.7.4.png)
 
 
 ---
@@ -222,7 +222,7 @@ Dynamic Prompt 基础框架
 
 
 
-## 当前版本
+
 # v1.8.4
 ### 新增功能
 - Prompt Metadata Engine
@@ -243,11 +243,101 @@ Foundation for future RAG and Agent modules
 
 
 ## 截图
-![alt text](picture/image-1.8.4(1).png)
-![alt text](picture/image-1.8.4(2).png)
+![alt text](../picture/image-1.8.4(1).png)
+![alt text](../picture/image-1.8.4(2).png)
 
 
 
 ---
 
 
+# v1.9.0
+### 新增功能
+- 文件夹重构
+- 加入了license
+- 加入了测试文件夹 运行pytest -v即可测试文件
+- Github Action还没有完成
+
+
+
+---
+
+
+
+
+# v2.0.0
+### 新增功能
+# Input Filter的职责
+### 检查这些规则(重要性排列)
+
+- 空输入（Empty Input）
+- 超长输入（Max Length）
+- 重复字符（Repeated Characters）
+- 控制字符（Control Characters）
+- Unicode 检查
+### 具体架构
+```
+run_security(text)
+        │
+        ▼
+check_input(text)
+        │
+        ▼
+safe ?
+   │
+ ┌─┴──────────┐
+ │            │
+No           Yes
+ │            │
+ ▼            ▼
+Return     Return
+
+```
+
+
+
+
+## 当前版本
+# v2.1.0
+### 新增功能
+- **Rule-based Prompt Injection Detector**。
+
+
+### 具体架构
+```
+ 
+              text
+              │
+              ▼
+      text = text.lower()
+              │
+              ▼
+    遍历 INJECTION_RULES
+              │
+              ▼
+      遍历当前分类所有 pattern
+              │
+              ▼
+    pattern 是否在 text 中？
+        │               │
+      Yes              No
+        │               │
+        ▼               │
+返回 SecurityResult      │
+ safe=False             │
+ reason=["Prompt Injection"]
+ text=text              │
+        │               │
+        └───────继续遍历────────┘
+              │
+              ▼
+     所有规则都没命中
+              │
+              ▼
+返回 SecurityResult
+ safe=True
+ reason=[]
+ text=text
+ 
+
+```

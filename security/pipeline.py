@@ -1,5 +1,5 @@
 from .input_filter import check_input,SecurityResult
-
+from .injection import detect_prompt_injection
 
 def run_security(text:str)  -> SecurityResult   :
 
@@ -37,17 +37,27 @@ def run_security(text:str)  -> SecurityResult   :
             List of detected risks.
     
     """
+
+    ## 输入的安全检查
     result = check_input(text)
 
-
-    if result.safe:
-        return result
 
     if not result.safe:
         return result
     
 
+    ## 输入内容的安全检查
+    result = detect_prompt_injection(result.text)
+
     
+    if not result.safe:
+        return result
+
+
+
+
+    
+    return result
 
 
 

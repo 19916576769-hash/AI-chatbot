@@ -1,6 +1,9 @@
 # KK AI Chat
 
-## A modern AI chatbot   designed   by   KJ_28
+## A modern AI chatbot     featuring   a Prompt Engine , Memory System and AI Security Pipeline    designed  by   KJ_28
+
+![alt text](picture/image-1.4.0.png)
+
 
 ---
 
@@ -93,17 +96,18 @@ http://127.0.0.1:8000
 
 
 
-## Feature
+## Features
 
-- prompt engine
-- modular architecture
-- prompt pipeline
-- memory system
-- prompt metadata
-- version management
-- extendable framework
-
-
+- Prompt Engine
+- Modular Architecture
+- Prompt Pipeline
+- Memory System
+- AI Security Pipeline
+- Input Validation
+- Prompt Injection Detection
+- Prompt Metadata
+- Version Management
+- Extendable Framework
 
 
 
@@ -112,9 +116,10 @@ http://127.0.0.1:8000
 1. Single Responsibility
 2. Open / Closed
 3. Pipeline First
-4. Configuration over Code
-5. Stable Public API
-6. Low Coupling
+4. Security First
+5. Configuration over Code
+6. Stable Public API
+7. Low Coupling
 
 
 
@@ -125,6 +130,7 @@ http://127.0.0.1:8000
 
 
 ## Architecture
+```
                 KK AI Framework
 
                        │
@@ -132,15 +138,17 @@ http://127.0.0.1:8000
                        │
         ┌──────────────┴──────────────┐
         ▼                             ▼
- Prompt Engine                  Memory Engine
+ Security Pipeline              Memory Engine
         │
         ▼
  Prompt Builder
         │
         ▼
- Prompt Stages
-
-
+ Prompt Engine
+        │
+        ▼
+       LLM
+```
 
 
 ---
@@ -149,25 +157,35 @@ http://127.0.0.1:8000
 
 ## Project Structure
 
- KK-Chatbot/
 
+```
+KK-Chatbot/
+
+├── app.py
 ├── chatbot.py
 ├── pipeline.py
+├── config.py
 │
 ├── prompt/
 │
 ├── memory/
 │
-├── logs/
+├── security/
+│   ├── input_filter.py
+│   ├── injection.py
+│   ├── pipeline.py
+│   ├── config.py
+│   └── risk.py
 │
-├── tests/
+├── test/
+│
+├── logs/
 │
 ├── docs/
 │
 ├── README.md
 └── requirements.txt
-
-
+```
 
 
 ---
